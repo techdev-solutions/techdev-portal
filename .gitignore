@@ -1,0 +1,18 @@
+# gradle / Maven
+target/
+build/
+.gradle/
+
+# IDEA
+.idea/
+*.iml
+*.ipr
+atlassian-ide-plugin.xml
+
+# Eclipse
+.settings/
+.project
+
+# OSX
+.DS_Store
+/.nb-gradle/private/

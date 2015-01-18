@@ -1,0 +1,12 @@
+server:
+    port: 8081
+spring:
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/techdev_oauth
+        username: techdev_oauth
+        password: techdev
+trackr:
+    pageRedirectUris: http://localhost
+proxy:
+    path: http://localhost
