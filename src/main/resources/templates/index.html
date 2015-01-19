@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>techdev Portal</title>
+</head>
+<body>
+<a th:href="@{${tokenUrl}(response_type='code', client_id=${googleClientId}, redirect_uri=${redirectUri}, scope='email', state='', access_type='offline')}">
+    Login with google
+</a>
+</body>
+</html>
