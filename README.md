@@ -64,11 +64,14 @@ This needs additional properties:
 
 The client-id and client-secret are available from the Google developer console.
 
-The needed tables in the datasource are here https://github.com/spring-projects/spring-security-oauth/blob/6d9de66787cb60249f0de00ffe9075366a803924/spring-security-oauth2/src/test/resources/schema.sql
-
 When it is running you can test the login process without trackr by going to
 
     http://localhost:8081/showUser
 
 If you have form login enabled you should get a login form (you have to add users to the user table to be able to login), if you have Google login activated a link to sign in with
 Google should be present.
+
+Database schema
+---------------
+The database tables are set up by flyway. You have to provide an empty schema.
+See http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties on how to configure properties like schema or switch flyway off completely.

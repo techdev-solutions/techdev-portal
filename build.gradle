@@ -28,4 +28,5 @@ dependencies {
     compile "org.webjars:bootstrap:3.1.1"
 
     compile "postgresql:postgresql:9.1-901.jdbc4"
+    compile "org.flywaydb:flyway-core"
 }
