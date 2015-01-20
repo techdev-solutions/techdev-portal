@@ -1,7 +1,7 @@
-package de.techdev.portal.google;
+package de.techdev.portal.authentication.google;
 
-import de.techdev.portal.google.data.PlusEmail;
-import de.techdev.portal.google.data.PlusPerson;
+import de.techdev.portal.authentication.google.data.PlusEmail;
+import de.techdev.portal.authentication.google.data.PlusPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

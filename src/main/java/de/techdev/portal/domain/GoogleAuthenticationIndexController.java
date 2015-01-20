@@ -1,16 +1,17 @@
 package de.techdev.portal.domain;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 
 @Controller
-public class IndexController {
+@Profile("google-login")
+public class GoogleAuthenticationIndexController {
 
     @Value("${techdev.portal.google.client-id}")
     private String googleClientId;
@@ -26,13 +27,7 @@ public class IndexController {
         model.addAttribute("googleClientId", googleClientId);
         model.addAttribute("redirectUri", redirectUri);
         model.addAttribute("tokenUrl", tokenUrl);
-        return "index";
-    }
-
-    @RequestMapping(value = "/showUser")
-    public String overview(Principal principal, Model model) {
-        model.addAttribute("principal", principal);
-        return "showUser";
+        return "google/index";
     }
 }
 

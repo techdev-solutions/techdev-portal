@@ -13,6 +13,9 @@ trackr:
 proxy:
     path: http://localhost
 
+---
+spring:
+    profiles: google-login
 techdev:
     portal:
         google:

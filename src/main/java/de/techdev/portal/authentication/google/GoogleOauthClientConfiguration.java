@@ -1,11 +1,8 @@
-package de.techdev.portal.google;
+package de.techdev.portal.authentication.google;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.annotation.*;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
@@ -20,6 +17,7 @@ import static java.util.Arrays.asList;
 
 @Configuration
 @EnableOAuth2Client
+@Profile("google-login")
 public class GoogleOauthClientConfiguration {
 
     @Value("${techdev.portal.google.client-id}")

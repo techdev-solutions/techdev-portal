@@ -49,6 +49,13 @@ and start it with java -jar. The following configuration properties are needed i
             url: jdbc:postgresql://127.0.0.1:5432/%oauth_database%
             username: %user%
             password: %password%
+
+It doesn't make much sense to use a in memory database because the resource servers need to access the oauth_access_token table.
+
+
+If you don't add anything form login is active. This is helpful for developing. Add --spring.profiles.active=google-login if you want to use the Google OAuth login process.
+This needs additional properties:
+
     techdev:
         portal:
             google:
@@ -62,3 +69,6 @@ The needed tables in the datasource are here https://github.com/spring-projects/
 When it is running you can test the login process without trackr by going to
 
     http://localhost:8081/showUser
+
+If you have form login enabled you should get a login form (you have to add users to the user table to be able to login), if you have Google login activated a link to sign in with
+Google should be present.

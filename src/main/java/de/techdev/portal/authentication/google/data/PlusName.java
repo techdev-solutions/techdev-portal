@@ -1,4 +1,4 @@
-package de.techdev.portal.google.data;
+package de.techdev.portal.authentication.google.data;
 
 public class PlusName {
     String familyName;
