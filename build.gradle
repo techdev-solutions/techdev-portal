@@ -11,7 +11,13 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
+archivesBaseName = 'techdev-portal'
 version = '1.0'
+if(project.hasProperty('teamcity')) {
+    version += '-build-' + project.teamcity['build.number']
+} else {
+    version += '-localbuild'
+}
 
 repositories {
     mavenCentral()
