@@ -1,6 +1,5 @@
 package de.techdev.portal.authentication.google;
 
-import de.techdev.portal.authentication.google.GoogleOAuthCodeAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -47,6 +46,9 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         return authenticationFilter;
     }
 
+    @Autowired
+    private AuthenticationEntryPoint entryPoint;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         RequestCache requestCache = new HttpSessionRequestCache();
@@ -57,7 +59,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
             .and().csrf().disable()
             .logout().logoutSuccessUrl("/").and()
             .exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")) // since we use a custom filter we have to set this redirect ourselves.
+                .authenticationEntryPoint(entryPoint) // since we use a custom filter we have to set this redirect ourselves.
                 .and().requestCache().requestCache(requestCache) // since we need a reference in the custom filter we set it ourselves.
         ;
     }

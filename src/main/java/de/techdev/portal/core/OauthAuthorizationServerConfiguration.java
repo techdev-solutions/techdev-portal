@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import javax.sql.DataSource;
@@ -27,6 +28,9 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
     @Value("${trackr.pageRedirectUris}")
     private String trackrPageRedirectUris;
 
+    @Value("${proxy.path}")
+    private String proxyPath;
+
     @Autowired
     private DataSource dataSource;
 
@@ -34,9 +38,15 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
     public ApprovalStore approvalStore() {
             return new JdbcApprovalStore(dataSource);
     }
+
     @Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
+    }
+
+    @Bean
+    public AuthenticationEntryPoint entryPoint() {
+        return new LoginUrlAuthenticationEntryPoint(proxyPath);
     }
 
     @Override
