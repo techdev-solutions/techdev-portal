@@ -66,6 +66,6 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"));
+        oauthServer.authenticationEntryPoint(entryPoint());
     }
 }
