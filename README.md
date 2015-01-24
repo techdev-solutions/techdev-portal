@@ -11,6 +11,9 @@ How it works
 The Google login button executes all the Google authentication logic and in case of success gives us an access token. That access token
 is used to verify the user in the backend and log him in.
 
+Since the Google login button works with Javascript we can't send a classical redirect to the client. Instead we wend the redirect URL
+as plain text and perform the redirect in Javascript.
+
 How to run and build
 --------------------
 It's Spring Boot, so it's pretty straight forward. Run the class TechdevPortal in your IDE or use the gradle run task or build the jar

@@ -1,5 +1,6 @@
 package de.techdev.portal.authentication.google;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.util.UrlUtils;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class GoogleLoginRedirectStrategy extends DefaultRedirectStrategy {
     @Override
     public void sendRedirect(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
         response.getWriter().append(calculateRedirectUrl(request.getContextPath(), url));
         response.flushBuffer();
     }
