@@ -22,14 +22,11 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class OauthAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    public static final String TRACKR_RESOURCE_ID = "techdev-services";
-    public static final String TRACKR_PAGE_CLIENT = "trackr-page";
+    private static final String TRACKR_RESOURCE_ID = "techdev-services";
+    private static final String TRACKR_PAGE_CLIENT = "trackr-page";
 
     @Value("${trackr.pageRedirectUris}")
     private String trackrPageRedirectUris;
-
-    @Value("${proxy.path}")
-    private String proxyPath;
 
     @Autowired
     private DataSource dataSource;
@@ -46,7 +43,7 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
 
     @Bean
     public AuthenticationEntryPoint entryPoint() {
-        return new LoginUrlAuthenticationEntryPoint(proxyPath);
+        return new LoginUrlAuthenticationEntryPoint("/");
     }
 
     @Override

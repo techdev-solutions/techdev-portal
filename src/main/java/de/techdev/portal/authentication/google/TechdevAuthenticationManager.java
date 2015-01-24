@@ -33,7 +33,11 @@ public class TechdevAuthenticationManager implements AuthenticationManager {
         if(!userDetailsManager.userExists(emailAddress)) {
             return handleNotExistentUser(emailAddress);
         } else {
-            return fromUserDetails(userDetailsManager.loadUserByUsername(emailAddress));
+            UserDetails userDetails = userDetailsManager.loadUserByUsername(emailAddress);
+            if (!userDetails.isEnabled()) {
+                throw new DisabledException("Account is disabled.");
+            }
+            return fromUserDetails(userDetails);
         }
     }
 

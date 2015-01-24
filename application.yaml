@@ -6,12 +6,11 @@ spring:
         url: jdbc:postgresql://127.0.0.1:5432/techdev_oauth
         username:
         password:
-    thymeleaf:
-        cache: false
 trackr:
-    pageRedirectUris: http://localhost:9090/authorize
-proxy:
-    path: /portal
+    pageRedirectUris: http://localhost/trackr/authorize
+techdev:
+    portal:
+        base-url: /portal/
 
 ---
 spring:
@@ -20,6 +19,9 @@ techdev:
     portal:
         google:
             client-id:
-            client-secret:
-            redirect-uri: http://localhost:9090/portal/login
-            token-url: https://accounts.google.com/o/oauth2/auth
+
+---
+spring:
+    profiles: dev
+    thymeleaf:
+        cache: false

@@ -13,6 +13,11 @@ public class FormAuthenticationIndexController {
     public String index() {
         return "form/index";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "form/login";
+    }
 }
 
 

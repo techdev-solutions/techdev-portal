@@ -28,7 +28,7 @@ public class FormAuthenticationConfiguration extends WebSecurityConfigurerAdapte
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().defaultSuccessUrl("/showUser")
+        http.formLogin().loginPage("/login").defaultSuccessUrl("/showUser")
             .and().csrf().disable()
             .authorizeRequests().antMatchers("/oauth/**", "/showUser").fullyAuthenticated();
     }
