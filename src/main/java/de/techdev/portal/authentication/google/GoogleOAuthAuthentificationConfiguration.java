@@ -56,8 +56,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
 
         http.authorizeRequests()
             .antMatchers("/oauth/**", "/showUser").fullyAuthenticated()
-            .and().csrf().disable()
-            .logout().logoutSuccessUrl("/").and()
+            .and().logout().logoutSuccessUrl("/").and()
             .exceptionHandling()
                 .authenticationEntryPoint(entryPoint) // since we use a custom filter we have to set this redirect ourselves.
                 .and().requestCache().requestCache(requestCache) // since we need a reference in the custom filter we set it ourselves.
