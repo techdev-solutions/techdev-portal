@@ -10,7 +10,7 @@ function loginCallback(newUrl) {
 
     // If we get a complete URL from the backend we convert it to a URI.
     // This URI should *not* contain any proxy paths like /portal/.
-    if(redirectUrl.indexOf('http://') === 0 || redirectUrl.indexOf('https://')) {
+    if(redirectUrl.indexOf('http://') === 0 || redirectUrl.indexOf('https://') === 0) {
         redirectUrl = getURI(redirectUrl);
     }
 
@@ -19,14 +19,29 @@ function loginCallback(newUrl) {
 }
 
 function loginError(response, data, error) {
-    // todo: better error handling
-    alert(error);
+    if(response.status === 500) {
+        viewModel.errorMessage('There was an internal server error logging in. Please contact an administrator.');
+    }
+    if(response.status === 401) {
+        var responseEntity = JSON.parse(response.responseText);
+        viewModel.errorMessage(responseEntity.message);
+    }
+    viewModel.showError(true);
 }
 
 function googleCallback(authResult) {
+    viewModel.showError(false);
+    viewModel.errorMessage('');
+
     if(authResult.access_token) {
         $.get('login', {'access-token': authResult.access_token})
             .done(loginCallback)
             .fail(loginError);
     }
+    // else: do something, but careful, the 'immediate' responses are not interesting error messages for the user!
 }
+
+var viewModel = {
+    showError: ko.observable(false),
+    errorMessage: ko.observable()
+};
