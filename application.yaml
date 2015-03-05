@@ -1,0 +1,27 @@
+server:
+    port: 8081
+spring:
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/techdev_oauth
+        username:
+        password:
+trackr:
+    pageRedirectUris: http://localhost/trackr/authorize
+techdev:
+    portal:
+        base-url: /portal/
+
+---
+spring:
+    profiles: google-login
+techdev:
+    portal:
+        google:
+            client-id:
+
+---
+spring:
+    profiles: dev
+    thymeleaf:
+        cache: false

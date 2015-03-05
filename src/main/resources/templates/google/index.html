@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <base th:href="${@environment.getProperty('techdev.portal.base-url')}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
+
+    <title>techdev portal</title>
+
+    <script type="text/javascript" src="webjars/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/knockout/3.2.0-1/knockout.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js" async="async" defer="defer"></script>
+    <script src="google/signinCallback.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="page-header">techdev portal</h1>
+    <div class="row">
+        <div class="col-lg-5">
+            <img class="img-responsive" src="http://techdev.de/assets/img/logo1-techdev.png" alt="techdev logo"/>
+        </div>
+        <div class="col-lg-5">
+            <p>This is the techdev portal. From here you can access our services.</p>
+            <p>Please login with Google.</p>
+            <span id="signinButton">
+                <span
+                     class="g-signin"
+                     data-callback="googleCallback"
+                     th:attr="data-clientid=${@environment.getProperty('techdev.portal.google.client-id')}"
+                     data-cookiepolicy="single_host_origin"
+                     data-scope="email">
+                </span>
+            </span>
+            <div id="error-message" data-bind="visible: showError">
+                <h4>There was an error authenticating you</h4>
+                <div class="alert alert-danger" data-bind="text: errorMessage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    ko.applyBindings(viewModel, document.getElementById('error-message'));
+</script>
+</body>
+</html>
