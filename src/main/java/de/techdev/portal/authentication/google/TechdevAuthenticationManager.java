@@ -51,7 +51,8 @@ public class TechdevAuthenticationManager implements AuthenticationManager {
     }
 
     private UsernamePasswordAuthenticationToken fromUserDetails(UserDetails userDetails) {
-        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        // We need to use the whole user details as the principal because the resource servers expect it there (and not only a string)!
+        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
 }
