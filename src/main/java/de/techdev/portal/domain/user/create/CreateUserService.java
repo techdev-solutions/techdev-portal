@@ -4,6 +4,8 @@ import de.techdev.portal.domain.trackr.CreateEmployeeRequest;
 import de.techdev.portal.domain.trackr.EmployeeAlreadyExistsException;
 import de.techdev.portal.domain.trackr.TrackrRestException;
 import de.techdev.portal.domain.trackr.TrackrService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 class CreateUserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CreateUserService.class);
 
     @Autowired
     private UserDetailsManager userDetailsManager;
@@ -35,12 +39,16 @@ class CreateUserService {
         if (request.isWithTrackr()) {
             try {
                 sendEmployeeToTrackr(request);
+            } catch (EmployeeAlreadyExistsException e) {
+                logger.info("Employee {} already existed but keeping newly created user.", request.getEmail());
+                throw e;
             } catch (TrackrRestException e) {
-                // TODO some better error handling needed?
+                logger.warn("Other error while creating a trackr employee, deleting user {}", request.getEmail());
                 userDetailsManager.deleteUser(request.getEmail());
                 throw e;
             }
         }
+        logger.info("User {} created.", request.getEmail());
         return user;
     }
 

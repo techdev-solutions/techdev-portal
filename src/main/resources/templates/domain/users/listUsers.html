@@ -10,6 +10,9 @@
     <div class="row">
         <span class="pull-right" th:include="fragments/logoutButton :: logoutButton"></span>
     </div>
+    <div th:if="${#vars['flash.warn'] != null}" class="row">
+        <div class="alert alert-warning" role="alert" th:text="${#vars['flash.warn']}"></div>
+    </div>
 
     <div class="row">
         <table class="table table-bordered">

@@ -1,5 +1,7 @@
 package de.techdev.portal.domain.trackr;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,6 +15,8 @@ import org.springframework.web.client.HttpClientErrorException;
 @Service
 class TrackrOauthService implements TrackrService {
 
+    private static final Logger logger = LoggerFactory.getLogger(TrackrOauthService.class);
+
     @Value("${trackr.apiUrl}")
     private String trackrApiUrl;
 
@@ -21,6 +25,7 @@ class TrackrOauthService implements TrackrService {
 
     @Override
     public CreateEmployeeAnswer createEmployee(CreateEmployeeRequest request) throws EmployeeAlreadyExistsException {
+        logger.info("Creating employee {} in trackr.", request.getEmail());
         HttpEntity<CreateEmployeeRequest> restRequest = new HttpEntity<>(request);
         ResponseEntity<CreateEmployeeAnswer> response;
         try {

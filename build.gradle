@@ -28,6 +28,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-jdbc"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.springframework.boot:spring-boot-starter-logging"
 
     compile "org.springframework.security.oauth:spring-security-oauth2:2.0.2.RELEASE"
 
