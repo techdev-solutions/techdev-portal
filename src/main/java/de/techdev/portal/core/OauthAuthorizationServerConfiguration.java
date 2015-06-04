@@ -22,11 +22,15 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class OauthAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    private static final String TRACKR_RESOURCE_ID = "techdev-services";
+    public static final String TRACKR_RESOURCE_ID = "techdev-services";
     private static final String TRACKR_PAGE_CLIENT = "trackr-page";
+    public static final String TECHDEV_PORTAL_CLIENT = "techdev-portal";
 
     @Value("${trackr.pageRedirectUris}")
     private String trackrPageRedirectUris;
+
+    @Value("${techdev.portal.trackr.clientSecret}")
+    private String portalTrackrClientSecret;
 
     @Autowired
     private DataSource dataSource;
@@ -48,12 +52,20 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient(TRACKR_PAGE_CLIENT)
-               .resourceIds(TRACKR_RESOURCE_ID)
-                .authorizedGrantTypes("authorization_code", "implicit") //TODO: what to set here?
-                .authorities("ROLE_CLIENT")
-                .scopes("read", "write")
-                .redirectUris(trackrPageRedirectUris.split(","));
+        clients.inMemory()
+                .withClient(TRACKR_PAGE_CLIENT)
+                    .resourceIds(TRACKR_RESOURCE_ID)
+                    .authorizedGrantTypes("authorization_code", "implicit") //TODO: what to set here?
+                    .authorities("ROLE_CLIENT")
+                    .scopes("read", "write")
+                    .redirectUris(trackrPageRedirectUris.split(","))
+                .and()
+                .withClient(TECHDEV_PORTAL_CLIENT)
+                    .resourceIds(TRACKR_RESOURCE_ID)
+                    .authorizedGrantTypes("client_credentials")
+                    .authorities("ROLE_ADMIN")
+                    .scopes("read", "write")
+                    .secret(portalTrackrClientSecret);
     }
 
     @Override

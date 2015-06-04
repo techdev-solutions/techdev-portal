@@ -16,15 +16,7 @@
         <form action="" method="post" th:object="${createUserRequest}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-            <div class="form-group">
-                <label for="firstName">First name</label>
-                <input type="text" class="form-control" placeholder="First name" name="firstName" id="firstName"/>
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last name</label>
-                <input type="text" class="form-control" placeholder="Last name" id="lastName"/>
-            </div>
+            <h3>Portal</h3>
 
             <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error : ''">
                 <label for="email">Email address</label>
@@ -38,17 +30,33 @@
                 </label>
             </div>
 
-            <div class="form-group">
-                <label for="federalState">Federal state</label>
-                <select id="federalState" class="form-control" name="federalState">
-                    <option>BERLIN</option>
-                </select>
-            </div>
+            <h3>Trackr</h3>
 
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="withTrackr"/> Also create trackr employee
+                    <input type="checkbox" name="withTrackr" onclick="displayTrackr(this.checked)"/> Also create trackr employee
                 </label>
+            </div>
+
+            <div id="trackr" style="visibility: hidden">
+                <p>All fields are required.</p>
+
+                <div class="form-group">
+                    <label for="firstName">First name</label>
+                    <input type="text" class="form-control" placeholder="First name" name="firstName" id="firstName"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input type="text" class="form-control" placeholder="Last name" id="lastName" name="lastName"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="federalState">Federal state</label>
+                    <select id="federalState" class="form-control" name="federalState">
+                        <option>BERLIN</option>
+                    </select>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>
@@ -56,6 +64,20 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    var trackrDiv;
+    function displayTrackr(display) {
+        if(display) {
+            trackrDiv.style.visibility = 'visible';
+        } else {
+            trackrDiv.style.visibility = 'hidden';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        trackrDiv = document.getElementById('trackr');
+    });
+</script>
 </body>
 
 </html>
