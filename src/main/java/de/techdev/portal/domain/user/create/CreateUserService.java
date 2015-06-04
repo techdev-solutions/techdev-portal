@@ -5,12 +5,9 @@ import de.techdev.portal.domain.trackr.EmployeeAlreadyExistsException;
 import de.techdev.portal.domain.trackr.TrackrRestException;
 import de.techdev.portal.domain.trackr.TrackrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-
-import static java.util.Collections.singletonList;
 
 @Service
 class CreateUserService {
@@ -32,8 +29,7 @@ class CreateUserService {
             throw new UserExistsException();
         }
 
-        // todo get authorities from the request
-        User user = new User(request.getEmail(), "", request.isEnabled(), true, true, true, singletonList(new SimpleGrantedAuthority("ROLE_EMPLOYEE")));
+        User user = new User(request.getEmail(), "", request.isEnabled(), true, true, true, request.getRoles());
         userDetailsManager.createUser(user);
 
         if (request.isWithTrackr()) {

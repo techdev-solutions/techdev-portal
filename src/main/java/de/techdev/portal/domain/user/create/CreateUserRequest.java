@@ -2,6 +2,10 @@ package de.techdev.portal.domain.user.create;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class CreateUserRequest {
 
@@ -10,6 +14,8 @@ class CreateUserRequest {
     private String lastName;
 
     private boolean enabled;
+
+    private List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
     @NotEmpty
     @Email
@@ -65,5 +71,13 @@ class CreateUserRequest {
 
     public void setWithTrackr(boolean withTrackr) {
         this.withTrackr = withTrackr;
+    }
+
+    public List<SimpleGrantedAuthority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SimpleGrantedAuthority> roles) {
+        this.roles = roles;
     }
 }

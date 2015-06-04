@@ -20,13 +20,33 @@
 
             <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error : ''">
                 <label for="email">Email address</label>
-                <input type="text" class="form-control" placeholder="Email address" id="email" th:field="*{email}"/>
+                <input type="email" class="form-control" placeholder="Email address" id="email" th:field="*{email}" required="required"/>
                 <span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}"></span>
             </div>
 
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="enabled"/> Enabled
+                </label>
+            </div>
+
+            <h4>Roles</h4>
+
+            <div class="checkbox">
+                <label for="admin_role">
+                    <input type="checkbox" id="admin_role" name="roles" value="ROLE_ADMIN"/> Admin
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="supervisor_role">
+                    <input type="checkbox" id="supervisor_role" name="roles" value="ROLE_SUPERVISOR"/> Supervisor
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="employee_role">
+                    <input type="checkbox" id="employee_role" name="roles" value="ROLE_EMPLOYEE" checked="checked"/> Employee
                 </label>
             </div>
 
@@ -38,7 +58,7 @@
                 </label>
             </div>
 
-            <div id="trackr" style="visibility: hidden">
+            <div id="trackr" style="display: none">
                 <p>All fields are required.</p>
 
                 <div class="form-group">
@@ -68,10 +88,22 @@
     var trackrDiv;
     function displayTrackr(display) {
         if(display) {
-            trackrDiv.style.visibility = 'visible';
+            setRequired('firstName');
+            setRequired('lastName')
+            trackrDiv.style.display = 'block';
         } else {
-            trackrDiv.style.visibility = 'hidden';
+            removeRequired('firstName')
+            removeRequired('lastName')
+            trackrDiv.style.display = 'none';
         }
+    }
+
+    function setRequired(id) {
+        document.getElementById(id).setAttribute('required', 'required');
+    }
+
+    function removeRequired(id) {
+        document.getElementById(id).removeAttribute('required');
     }
 
     document.addEventListener("DOMContentLoaded", function() {
