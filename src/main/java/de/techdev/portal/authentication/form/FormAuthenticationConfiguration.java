@@ -3,8 +3,10 @@ package de.techdev.portal.authentication.form;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -27,9 +29,19 @@ public class FormAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").defaultSuccessUrl("/showUser")
-            .and().authorizeRequests().antMatchers("/oauth/**", "/showUser").fullyAuthenticated();
+        http
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/landing")
+            .and()
+                .authorizeRequests().antMatchers("/login").anonymous()
+                                    .antMatchers("/**").authenticated();
     }
 
 }

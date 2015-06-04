@@ -28,7 +28,7 @@ public class GoogleOAuthCodeAuthenticationFilter extends AbstractAuthenticationP
         // Redirect the user to the original wanted page after a successful login.
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setRequestCache(requestCache);
-        successHandler.setDefaultTargetUrl("/showUser");
+        successHandler.setDefaultTargetUrl("/landing");
         successHandler.setRedirectStrategy(new GoogleLoginRedirectStrategy());
         this.setAuthenticationSuccessHandler(successHandler);
     }

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -29,15 +31,18 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private AuthenticationEntryPoint entryPoint;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Bean
     public UserDetailsManager userDetailsManager() {
         JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager();
         detailsManager.setDataSource(dataSource);
         return detailsManager;
     }
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Bean
     public GoogleOAuthCodeAuthenticationFilter googleAuthenticationFilter(RequestCache requestCache) {
@@ -46,8 +51,10 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         return authenticationFilter;
     }
 
-    @Autowired
-    private AuthenticationEntryPoint entryPoint;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.GET, "/webjar/**");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -55,8 +62,9 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         http.addFilterBefore(googleAuthenticationFilter(requestCache), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
-            .antMatchers("/oauth/**", "/showUser").fullyAuthenticated()
-            .and().logout().logoutSuccessUrl("/").and()
+                .antMatchers("/login").anonymous()
+                .antMatchers("/**").authenticated()
+                .and().logout().logoutSuccessUrl("/").and()
             .exceptionHandling()
                 .authenticationEntryPoint(entryPoint) // since we use a custom filter we have to set this redirect ourselves.
                 .and().requestCache().requestCache(requestCache) // since we need a reference in the custom filter we set it ourselves.
