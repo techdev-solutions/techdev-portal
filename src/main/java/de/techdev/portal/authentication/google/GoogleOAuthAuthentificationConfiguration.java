@@ -62,7 +62,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         http.addFilterBefore(googleAuthenticationFilter(requestCache), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/login").anonymous()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().logout().logoutSuccessUrl("/").and()
             .exceptionHandling()

@@ -52,7 +52,7 @@ public class FormAuthenticationConfiguration extends WebSecurityConfigurerAdapte
             .and()
                 .logout().logoutSuccessUrl("/landing")
             .and()
-                .authorizeRequests().antMatchers("/login").anonymous()
+                .authorizeRequests().antMatchers("/login").permitAll()
                                     .antMatchers("/**").authenticated();
     }
 
