@@ -5,13 +5,7 @@
 
 <body>
 <div class="container">
-    <div class="row">
-        <h1 class="page-header">techdev portal</h1>
-    </div>
-
-    <div class="row">
-         <span class="pull-right" th:include="fragments/logoutButton :: logoutButton"></span>
-    </div>
+    <div th:include="fragments/header :: header(title = 'techdev portal')"></div>
 
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <a href="listUsers">List users</a><br/>

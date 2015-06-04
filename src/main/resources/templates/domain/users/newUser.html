@@ -4,13 +4,7 @@
 
 <body>
 <div class="container">
-    <div class="row">
-        <h1 class="page-header">Create new user</h1>
-    </div>
-
-    <div class="row">
-        <span class="pull-right" th:include="fragments/logoutButton :: logoutButton"></span>
-    </div>
+    <div th:include="fragments/header :: header(title = 'Create new user')"></div>
 
     <div class="row">
         <form action="" method="post" th:object="${createUserRequest}">
