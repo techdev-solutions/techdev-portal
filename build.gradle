@@ -36,6 +36,7 @@ dependencies {
 
     compile "postgresql:postgresql:9.1-901.jdbc4"
     compile "org.flywaydb:flyway-core"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3"
 }
 
 task wrapper(type: Wrapper) {

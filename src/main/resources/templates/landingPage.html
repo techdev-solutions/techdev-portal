@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="fragments/head :: htmlHead"></head>
 
 <body>
@@ -9,15 +10,13 @@
     </div>
 
     <div class="row">
-         <span class="pull-right">
-            <span th:text="${userName}"></span>
-            <form style="display: inline" method="post" action="logout">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <input class="btn btn-sm" type="submit" value="Logout"/>
-            </form>
-        </span>
+         <span class="pull-right" th:include="fragments/logoutButton :: logoutButton"></span>
     </div>
 
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a href="listUsers">List users</a><br/>
+        <a href="createUser">Create new user</a>
+    </div>
 </div>
 </body>
 

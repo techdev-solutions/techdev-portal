@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: htmlHead(title = 'List users')"></head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <h1 class="page-header">List users</h1>
+    </div>
+    <div class="row">
+        <span class="pull-right" th:include="fragments/logoutButton :: logoutButton"></span>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <th>Username</th>
+                <th>Enabled</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.enabled}"></td>
+                <td th:text="${user.authorities}"></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+</body>
+
+</html>
