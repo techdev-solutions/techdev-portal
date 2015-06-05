@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: htmlHead(title = 'portal - Logged out')"></head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <h1 class="page-header">You have been logged out</h1>
+    </div>
+
+    <div class="row">
+        <p>
+            You have successfully been logged out of the techdev-portal. If you want to log in again, please click
+            <a th:href="@{''}">here</a>
+        </p>
+    </div>
+</div>
+</body>
+
+</html>

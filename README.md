@@ -41,7 +41,7 @@ The client-id is available from the Google developer console.
 
 When it is running you can test the login process without trackr by going to
 
-    http://localhost:8081/showUser
+    http://localhost:8081/landing
 
 If you have form login enabled you should get a login form (you have to add users to the user table to be able to login), if you have Google login activated a link to sign in with
 Google should be present.

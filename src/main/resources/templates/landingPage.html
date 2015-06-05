@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: htmlHead"></head>
+
+<body>
+<div class="container">
+    <div th:include="fragments/header :: header(title = 'techdev portal')"></div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a href="listUsers">List users</a><br/>
+        <a href="createUser">Create new user</a>
+    </div>
+</div>
+</body>
+
+</html>

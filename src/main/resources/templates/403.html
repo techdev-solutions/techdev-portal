@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: htmlHead(title = 'portal - Access forbidden')"></head>
+
+<body>
+<div class="container">
+    <div th:include="fragments/header :: header(title = 'Access forbidden')"></div>
+
+    <div class="row">
+        The page you are trying to access is restricted.
+    </div>
+</div>
+</body>
+
+</html>

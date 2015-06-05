@@ -8,9 +8,13 @@ spring:
         password:
 trackr:
     pageRedirectUris: http://localhost/trackr/authorize
+    apiUrl: http://localhost/trackr/api
 techdev:
     portal:
         base-url: /portal/
+        accessTokenUri: http://localhost/portal/oauth/token
+        trackr:
+            clientSecret: techdev
 
 ---
 spring:

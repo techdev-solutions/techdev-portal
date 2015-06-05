@@ -13,6 +13,9 @@ public class GoogleAuthenticationIndexController {
     public String index() {
         return "google/index";
     }
+
+    @RequestMapping(value = "/loggedOut", method = RequestMethod.GET)
+    public String loggedOut() {
+        return "google/loggedOut";
+    }
 }
-
-
