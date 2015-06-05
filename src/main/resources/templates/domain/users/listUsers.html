@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: htmlHead(title = 'List users')"></head>
+<head th:include="fragments/head :: htmlHead(title = 'portal - List users')"></head>
 
 <body>
 <div class="container">
     <div th:include="fragments/header :: header(title = 'List users')"></div>
-
     <div class="row">
         <table class="table table-bordered">
             <tr>
@@ -18,7 +17,11 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.enabled}"></td>
                 <td th:text="${user.authorities}"></td>
-                <td></td>
+                <td>
+                    <a th:href="@{editUser(username = ${user.username})}" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </td>
             </tr>
         </table>
     </div>

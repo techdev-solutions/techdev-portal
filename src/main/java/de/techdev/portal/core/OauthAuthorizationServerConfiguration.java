@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 public class OauthAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     public static final String TRACKR_RESOURCE_ID = "techdev-services";
-    private static final String TRACKR_PAGE_CLIENT = "trackr-page";
+    public static final String TRACKR_PAGE_CLIENT = "trackr-page";
     public static final String TECHDEV_PORTAL_CLIENT = "techdev-portal";
 
     @Value("${trackr.pageRedirectUris}")

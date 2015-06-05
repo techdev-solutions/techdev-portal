@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/createUser")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-public class CreateUserController {
+class CreateUserController {
 
     @Autowired
     private CreateUserService createUserService;
