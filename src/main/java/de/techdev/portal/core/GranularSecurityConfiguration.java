@@ -1,0 +1,48 @@
+package de.techdev.portal.core;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
+import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class GranularSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    /**
+     * This is needed so {@link org.springframework.security.access.prepost.PreAuthorize} and so on know the role hierarchy.
+     */
+    @Override
+    protected MethodSecurityExpressionHandler createExpressionHandler() {
+        DefaultMethodSecurityExpressionHandler methodSecurityExpressionHandler = new DefaultMethodSecurityExpressionHandler();
+        methodSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
+
+        //Needs to be done so we can access beans in security expressions
+        methodSecurityExpressionHandler.setApplicationContext(applicationContext);
+        return methodSecurityExpressionHandler;
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        //TODO make this configurable
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_SUPERVISOR ROLE_SUPERVISOR > ROLE_EMPLOYEE ROLE_EMPLOYEE > ROLE_ANONYMOUS");
+        return roleHierarchy;
+    }
+    @Bean
+    public RoleVoter roleVoter() {
+        return new RoleHierarchyVoter(roleHierarchy());
+    }
+
+}

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: htmlHead(title = 'portal - User not found')"></head>
+
+<body>
+<div class="container">
+    <div th:include="fragments/header :: header(title = ${message})"></div>
+    <div class="row">
+        <p>The user you were looking for couldn't be found.</p>
+        <p>
+            <a th:href="@{listUsers}">Back to list</a>
+        </p>
+    </div>
+</div>
+</body>
+
+</html>

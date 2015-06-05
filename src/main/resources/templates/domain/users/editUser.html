@@ -1,0 +1,47 @@
+<!doctype html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: htmlHead(title = 'Update user')"></head>
+
+<body>
+<div class="container">
+    <div th:include="fragments/header :: header(title = 'portal - Update user ' + ${user.username})"></div>
+
+    <div class="row">
+        <form action="" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="enabled" th:checked="${user.enabled}"/> Enabled
+                </label>
+            </div>
+
+            <h4>Roles</h4>
+
+            <div class="checkbox">
+                <label for="admin_role">
+                    <input type="checkbox" id="admin_role" name="roles" value="ROLE_ADMIN"
+                           th:checked="${user.hasAuthority('ROLE_ADMIN')}"/> Admin
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="supervisor_role">
+                    <input type="checkbox" id="supervisor_role" name="roles" value="ROLE_SUPERVISOR"
+                           th:checked="${user.hasAuthority('ROLE_SUPERVISOR')}"/> Supervisor
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label for="employee_role">
+                    <input type="checkbox" id="employee_role" name="roles" value="ROLE_EMPLOYEE"
+                           th:checked="${user.hasAuthority('ROLE_EMPLOYEE')}"/> Employee
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
