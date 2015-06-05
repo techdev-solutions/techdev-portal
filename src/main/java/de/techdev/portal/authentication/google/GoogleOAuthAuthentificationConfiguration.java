@@ -62,9 +62,9 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         http.addFilterBefore(googleAuthenticationFilter(requestCache), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/login", "/").permitAll()
+                .antMatchers("/login", "/", "/loggedOut").permitAll()
                 .antMatchers("/**").authenticated()
-                .and().logout().logoutSuccessUrl("/").and()
+                .and().logout().logoutSuccessUrl("/loggedOut").and()
             .exceptionHandling()
                 .authenticationEntryPoint(entryPoint) // since we use a custom filter we have to set this redirect ourselves.
                 .and().requestCache().requestCache(requestCache) // since we need a reference in the custom filter we set it ourselves.
