@@ -53,7 +53,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET, "/webjar/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/**/*.js");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         http.addFilterBefore(googleAuthenticationFilter(requestCache), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login", "/").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().logout().logoutSuccessUrl("/").and()
             .exceptionHandling()
