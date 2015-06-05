@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/editUser")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-class EditUserController {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
+class UpdateUserController {
 
     @Autowired
     private UserDetailsManager userDetailsManager;
@@ -31,7 +27,7 @@ class EditUserController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showEditForm(@RequestParam("username") String username) {
         ModelAndView modelAndView = new ModelAndView("domain/users/editUser");
-        modelAndView.addObject("user", new UpdateUserModel(userDetailsService.loadUserByUsername(username)));
+        modelAndView.addObject("user", new UpdateUserModel(userDetailsManager.loadUserByUsername(username)));
         return modelAndView;
     }
 
