@@ -1,7 +1,6 @@
 package de.techdev.portal.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -21,16 +20,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 public class OauthAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-
-    public static final String TRACKR_RESOURCE_ID = "techdev-services";
-    public static final String TRACKR_PAGE_CLIENT = "trackr-page";
-    public static final String TECHDEV_PORTAL_CLIENT = "techdev-portal";
-
-    @Value("${trackr.pageRedirectUris}")
-    private String trackrPageRedirectUris;
-
-    @Value("${techdev.portal.trackr.clientSecret}")
-    private String portalTrackrClientSecret;
 
     @Autowired
     private DataSource dataSource;
@@ -52,20 +41,7 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient(TRACKR_PAGE_CLIENT)
-                    .resourceIds(TRACKR_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "implicit") //TODO: what to set here?
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "write")
-                    .redirectUris(trackrPageRedirectUris.split(","))
-                .and()
-                .withClient(TECHDEV_PORTAL_CLIENT)
-                    .resourceIds(TRACKR_RESOURCE_ID)
-                    .authorizedGrantTypes("client_credentials")
-                    .authorities("ROLE_ADMIN")
-                    .scopes("read", "write")
-                    .secret(portalTrackrClientSecret);
+        clients.jdbc(dataSource);
     }
 
     @Override
