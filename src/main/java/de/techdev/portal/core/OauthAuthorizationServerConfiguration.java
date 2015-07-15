@@ -26,7 +26,7 @@ public class OauthAuthorizationServerConfiguration extends AuthorizationServerCo
 
     @Bean
     public ApprovalStore approvalStore() {
-            return new JdbcApprovalStore(dataSource);
+        return new JdbcApprovalStore(dataSource);
     }
 
     @Bean
