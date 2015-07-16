@@ -7,10 +7,13 @@ spring:
         username:
         password:
 trackr:
-    pageRedirectUris: http://localhost/trackr/authorize
+    oauth:
+        resourceId: techdev-services
+        webClientId: trackr-page
     apiUrl: http://localhost/trackr/api
 techdev:
     portal:
+        clientId: techdev-portal
         base-url: /portal/
         accessTokenUri: http://localhost/portal/oauth/token
         trackr:
