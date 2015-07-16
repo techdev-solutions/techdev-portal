@@ -12,7 +12,7 @@ import java.util.Collection;
 class TokenDeleter {
 
     @Value("${trackr.oauth.webClientId}")
-    private String trackrWebpageClientId = "trackr-page";
+    private String trackrWebpageClientId;
 
     @Autowired
     private TokenStore tokenStore;

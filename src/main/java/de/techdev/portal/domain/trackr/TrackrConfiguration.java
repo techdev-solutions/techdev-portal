@@ -12,10 +12,10 @@ import static java.util.Arrays.asList;
 class TrackrConfiguration {
 
     @Value("${trackr.oauth.resourceId}")
-    private String trackrResourceId = "techdev-services";
+    private String trackrResourceId;
 
     @Value("${techdev.portal.clientId}")
-    private String techdevPortalClientId = "techdev-portal";
+    private String techdevPortalClientId;
 
     @Value("${techdev.portal.accessTokenUri}")
     private String accessTokenUri;
