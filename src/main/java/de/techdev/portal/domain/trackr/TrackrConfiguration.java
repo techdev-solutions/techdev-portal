@@ -1,6 +1,5 @@
 package de.techdev.portal.domain.trackr;
 
-import de.techdev.portal.core.OauthAuthorizationServerConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +11,12 @@ import static java.util.Arrays.asList;
 @Configuration
 class TrackrConfiguration {
 
+    @Value("${trackr.oauth.resourceId}")
+    private String trackrResourceId;
+
+    @Value("${techdev.portal.clientId}")
+    private String techdevPortalClientId;
+
     @Value("${techdev.portal.accessTokenUri}")
     private String accessTokenUri;
 
@@ -21,8 +26,8 @@ class TrackrConfiguration {
     @Bean
     public OAuth2RestTemplate trackrTemplate() {
         ClientCredentialsResourceDetails resourceDetails = new ClientCredentialsResourceDetails();
-        resourceDetails.setId(OauthAuthorizationServerConfiguration.TRACKR_RESOURCE_ID);
-        resourceDetails.setClientId(OauthAuthorizationServerConfiguration.TECHDEV_PORTAL_CLIENT);
+        resourceDetails.setId(trackrResourceId);
+        resourceDetails.setClientId(techdevPortalClientId);
         resourceDetails.setAccessTokenUri(accessTokenUri);
         resourceDetails.setClientSecret(trackrClientSecret);
         resourceDetails.setScope(asList("read", "write"));
