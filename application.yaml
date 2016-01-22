@@ -10,12 +10,12 @@ trackr:
     oauth:
         resourceId: techdev-services
         webClientId: trackr-page
-    apiUrl: http://localhost/trackr/api
+    apiUrl: http://localhost/api
 techdev:
     portal:
         clientId: techdev-portal
-        base-url: /portal/
-        accessTokenUri: http://localhost/portal/oauth/token
+        base-url: /
+        accessTokenUri: http://localhost:8081/oauth/token
         trackr:
             clientSecret: techdev
 
