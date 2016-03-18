@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.3.RELEASE")
     }
 }
 
@@ -23,6 +23,10 @@ repositories {
     mavenCentral()
 }
 
+springBoot {
+    executable = true
+}
+
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-jdbc"
@@ -37,7 +41,7 @@ dependencies {
 
     compile "postgresql:postgresql:9.1-901.jdbc4"
     compile "org.flywaydb:flyway-core"
-    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4"
 }
 
 task wrapper(type: Wrapper) {
