@@ -53,7 +53,7 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/**/*.js");
+        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/**/*.js", "/favicon.ico");
     }
 
     @Override
