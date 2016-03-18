@@ -40,7 +40,7 @@ public class FormAuthenticationConfiguration extends WebSecurityConfigurerAdapte
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/favicon.ico");
     }
 
     @Override
