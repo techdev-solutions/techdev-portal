@@ -44,13 +44,6 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
         return detailsManager;
     }
 
-    @Bean
-    public GoogleOAuthCodeAuthenticationFilter googleAuthenticationFilter(RequestCache requestCache) {
-        GoogleOAuthCodeAuthenticationFilter authenticationFilter = new GoogleOAuthCodeAuthenticationFilter(requestCache);
-        authenticationFilter.setAuthenticationManager(authenticationManager);
-        return authenticationFilter;
-    }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/**/*.js", "/favicon.ico");
@@ -59,7 +52,9 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         RequestCache requestCache = new HttpSessionRequestCache();
-        http.addFilterBefore(googleAuthenticationFilter(requestCache), UsernamePasswordAuthenticationFilter.class);
+        GoogleOAuthCodeAuthenticationFilter authenticationFilter = new GoogleOAuthCodeAuthenticationFilter(requestCache);
+        authenticationFilter.setAuthenticationManager(authenticationManager);
+        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
                 .antMatchers("/login", "/", "/loggedOut").permitAll()
@@ -70,4 +65,5 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
                 .and().requestCache().requestCache(requestCache) // since we need a reference in the custom filter we set it ourselves.
         ;
     }
+
 }
