@@ -1,6 +1,8 @@
 package de.techdev.portal.authentication.google;
 
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -37,6 +39,9 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Value("${techdev.portal.google.client-id}")
+    private String googleClientId;
+
     @Bean
     public UserDetailsManager userDetailsManager() {
         JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager();
@@ -52,7 +57,8 @@ public class GoogleOAuthAuthentificationConfiguration extends WebSecurityConfigu
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         RequestCache requestCache = new HttpSessionRequestCache();
-        GoogleOAuthCodeAuthenticationFilter authenticationFilter = new GoogleOAuthCodeAuthenticationFilter(requestCache);
+        GoogleOAuthCodeAuthenticationFilter authenticationFilter =
+                new GoogleOAuthCodeAuthenticationFilter(requestCache, GoogleNetHttpTransport.newTrustedTransport(), googleClientId);
         authenticationFilter.setAuthenticationManager(authenticationManager);
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

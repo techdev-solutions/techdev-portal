@@ -29,19 +29,19 @@ function loginError(response, data, error) {
     viewModel.showError(true);
 }
 
-function googleCallback(authResult) {
-    viewModel.showError(false);
-    viewModel.errorMessage('');
-
-    if(authResult.access_token) {
-        $.get('login', {'access-token': authResult.access_token})
-            .done(loginCallback)
-            .fail(loginError);
-    }
-    // else: do something, but careful, the 'immediate' responses are not interesting error messages for the user!
-}
-
 var viewModel = {
     showError: ko.observable(false),
     errorMessage: ko.observable()
 };
+
+function onSignIn(googleUser) {
+    // Reset error message after sign in with Google happened, errors can only happen from our login endpoint!
+    viewModel.showError(false);
+    viewModel.errorMessage('');
+
+    var idToken = googleUser.getAuthResponse().id_token;
+    $.get('login', { 'access-token': idToken })
+      .done(loginCallback)
+      .fail(loginError);
+}
+

@@ -1,15 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <base th:href="${@environment.getProperty('techdev.portal.base-url')}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="google-signin-client_id" th:attr="content=${@environment.getProperty('techdev.portal.google.client-id')}"/>
     <link rel="stylesheet" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css"/>
 
     <title>techdev portal</title>
 
     <script type="text/javascript" src="webjars/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript" src="webjars/knockout/3.2.0-1/knockout.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js" async="async" defer="defer"></script>
+    <script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script>
     <script src="google/signinCallback.js"></script>
 </head>
 <body>
@@ -22,15 +23,7 @@
         <div class="col-lg-5">
             <p>This is the techdev portal. From here you can access our services.</p>
             <p>Please login with Google.</p>
-            <span id="signinButton">
-                <span
-                     class="g-signin"
-                     data-callback="googleCallback"
-                     th:attr="data-clientid=${@environment.getProperty('techdev.portal.google.client-id')}"
-                     data-cookiepolicy="single_host_origin"
-                     data-scope="email">
-                </span>
-            </span>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <div id="error-message" data-bind="visible: showError">
                 <h4>There was an error authenticating you</h4>
                 <div class="alert alert-danger" data-bind="text: errorMessage"></div>
