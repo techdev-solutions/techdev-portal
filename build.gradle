@@ -43,7 +43,3 @@ dependencies {
     compile "org.flywaydb:flyway-core"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4"
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.1'
-}
