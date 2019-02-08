@@ -19,7 +19,7 @@ public class GoogleLoginRedirectStrategy extends DefaultRedirectStrategy {
         response.flushBuffer();
     }
 
-    private String calculateRedirectUrl(String contextPath, String url) {
+    protected String calculateRedirectUrl(String contextPath, String url) {
         if (!UrlUtils.isAbsoluteUrl(url)) {
             return contextPath + url;
         }

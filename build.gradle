@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.19.RELEASE")
     }
 }
 
@@ -34,12 +34,12 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-logging"
 
-    compile "org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE"
+    compile "org.springframework.security.oauth:spring-security-oauth2"
 
     compile "org.webjars:bootstrap:3.1.1"
     compile "org.webjars:knockout:3.2.0-1"
 
-    compile "postgresql:postgresql:9.1-901.jdbc4"
+    compile "org.postgresql:postgresql"
     compile "org.flywaydb:flyway-core"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4"
 }
